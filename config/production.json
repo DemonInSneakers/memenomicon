@@ -1,0 +1,5 @@
+{
+  "port": 80,
+  "jwtSecret": "I love you, MERN",
+  "mongoUri": "mongodb+srv://DemonInSneakers:khsIypuPn6fD2ScO@cluster0-4nnes.azure.mongodb.net/test?retryWrites=true&w=majority"
+}
