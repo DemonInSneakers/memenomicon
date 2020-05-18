@@ -17,14 +17,7 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
-
-    const httpsOptions = {
-        key: fs.readFileSync("/etc/ssl/private.key"), // путь к ключу
-        cert: fs.readFileSync("/etc/ssl/memenomicon.crt") // путь к сертификату
-    }
 }
-
-const PORT = config.get("port") || 5000
 
 async function start() {
     try {
@@ -33,9 +26,18 @@ async function start() {
             useUnifiedTopology: true,
             useCreateIndex: true
         })
-        app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+
+        //http
+        const HTTP_PORT = config.get("httpPort") || 5000
+        app.listen(HTTP_PORT, () => console.log(`App has been started on port ${HTTP_PORT}...`))
+
+        //https
         if (process.env.NODE_ENV === 'production') {
-            https.createServer(httpsOptions, app).listen(443)
+            const HTTPS_PORT = config.get("httpsPort") || 5443
+            https.createServer({
+                key: fs.readFileSync(config.get("pathHttpsKey")),
+                cert: fs.readFileSync(config.get("pathHttpsCert"))
+            }, app).listen(HTTPS_PORT, () => console.log(`App has been started on port ${HTTPS_PORT}...`))
         }
     } catch (e) {
         console.log('Server Error', e.message)

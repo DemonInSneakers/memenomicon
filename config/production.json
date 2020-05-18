@@ -1,5 +1,8 @@
 {
-  "port": 80,
+  "httpPort": 80,
+  "httpsPort" : 443,
+  "pathHttpsKey": '/etc/ssl/private.key',
+  "pathHttpsCert": '/etc/ssl/memenomicon.crt',
   "jwtSecret": "I love you, MERN",
   "mongoUri": "mongodb+srv://DemonInSneakers:khsIypuPn6fD2ScO@cluster0-4nnes.azure.mongodb.net/test?retryWrites=true&w=majority"
 }
